@@ -87,7 +87,12 @@ class PiorityQueue():
         self.remove(item)
         self.enqueue(item,newPiority)
 
-        
+
+
+if __name__ == '__main__':
+    # main body starts here...
+    pass
+
 
     
         

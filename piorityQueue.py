@@ -8,30 +8,32 @@ class Node():
         self.item = item
         self.piority = piority
         self.next = None
+
 class PiorityQueue():
     def __init__(self):
         self.head = None
 
-    def enqueue(self,item,piority):
-        newnode=Node(item,piority)
-        #case 1:
-        if self.head is  None:
-            self.head = newnode
-            return
-        #case 2:
-        if piority > self.head.piority:
-            newnode.next = self.head
-            self.head = newnode
-            return
-        
-        #case 3: iterate from the head until find the sutabile postion
+    def enqueue(self, item, piority):
+     newnode = Node(item, piority)
 
-        temp=self.head
-        while temp is not None and temp.next.piority>=temp.piority:
-            temp=temp.next
-            newnode.next=temp.next
-            temp.next=newnode
-        
+    # case 1: the queue is empty
+     if self.head is None:
+        self.head = newnode
+        return
+
+    # case 2: the new node has higher priority than the head
+     if  piority> self.head.piority:
+        newnode.next = self.head
+        self.head = newnode
+        return
+
+    # case 3: the new node has lower or equal priority than the head
+     temp = self.head
+     while temp.next is not None and temp.next.piority >= piority:
+        temp = temp.next
+
+     newnode.next = temp.next
+     temp.next = newnode
 
     def dequeue(self):
         if self.isEmpty():
@@ -77,7 +79,7 @@ class PiorityQueue():
             if temp.next.item == item:
                 temp.next = temp.next.next
                 return
-            current = current.next
+            temp = temp.next
 
         raise Exception("Item not found in queue")
     
@@ -86,12 +88,24 @@ class PiorityQueue():
     def changePiority(self,item,newPiority):
         self.remove(item)
         self.enqueue(item,newPiority)
+    def print(self):
+        temp = self.head
 
+        while temp is not None:
+            print((temp.item,temp.piority))
+            temp = temp.next
 
 
 if __name__ == '__main__':
     # main body starts here...
-    pass
+        pq = PiorityQueue()
+        pq.enqueue("item1", 1)
+        pq.enqueue("item2", 2)
+        pq.enqueue("item3", 3)
+        pq.enqueue("item4", 2)
+        pq.enqueue("item5", 1)
+
+        pq.print()
 
 
     
